@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - AquaVision AI</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      background:linear-gradient(to bottom,#02142f,#04244d,#041e43);
+      color:white;
+      overflow-x:hidden;
+    }
+
+    /* NAVBAR */
+
+    .navbar{
+      width:100%;
+      height:90px;
+      background:#041838;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 70px;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .logo i{
+      font-size:30px;
+      color:#19d8ff;
+    }
+
+    .logo h1{
+      font-size:30px;
+      font-weight:700;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:25px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:#d8e6ff;
+      padding:14px 24px;
+      border-radius:18px;
+      font-size:18px;
+      transition:0.3s ease;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .nav-links a:hover{
+      background:rgba(255,255,255,0.05);
+      color:#19d8ff;
+    }
+
+    .nav-links .active{
+      background:#102a56;
+      color:#19d8ff;
+    }
+
+    /* HERO */
+
+    .hero{
+      width:100%;
+      min-height:85vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:90px 8%;
+      gap:60px;
+      position:relative;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      width:450px;
+      height:450px;
+      background:rgba(25,216,255,0.08);
+      border-radius:50%;
+      filter:blur(70px);
+      top:-100px;
+      right:-100px;
+    }
+
+    .hero-text{
+      flex:1;
+      z-index:2;
+    }
+
+    .hero-text h4{
+      color:#19d8ff;
+      font-size:20px;
+      margin-bottom:20px;
+      letter-spacing:1px;
+    }
+
+    .hero-text h1{
+      font-size:70px;
+      line-height:1.1;
+      margin-bottom:25px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      font-size:20px;
+      line-height:1.9;
+      color:#b6c8e6;
+      margin-bottom:35px;
+      max-width:700px;
+    }
+
+    .buttons{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:16px 32px;
+      border-radius:16px;
+      text-decoration:none;
+      font-size:18px;
+      font-weight:600;
+      transition:0.3s ease;
+    }
+
+    .primary-btn{
+      background:#19d8ff;
+      color:#041838;
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-4px);
+      box-shadow:0 15px 30px rgba(25,216,255,0.2);
+    }
+
+    .secondary-btn{
+      border:2px solid rgba(255,255,255,0.12);
+      color:white;
+      background:rgba(255,255,255,0.03);
+    }
+
+    .secondary-btn:hover{
+      border-color:#19d8ff;
+      color:#19d8ff;
+    }
+
+    /* IMAGE CARD */
+
+    .hero-image{
+      flex:1;
+      display:flex;
+      justify-content:center;
+      z-index:2;
+    }
+
+    .image-card{
+      width:500px;
+      height:560px;
+      border-radius:35px;
+      background:linear-gradient(to bottom right,#083766,#041f44);
+      border:1px solid rgba(255,255,255,0.08);
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .image-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .floating-card{
+      position:absolute;
+      bottom:25px;
+      left:25px;
+      right:25px;
+      padding:25px;
+      background:rgba(4,24,56,0.85);
+      border-radius:25px;
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.06);
+    }
+
+    .floating-card h3{
+      font-size:24px;
+      margin-bottom:10px;
+    }
+
+    .floating-card p{
+      color:#9eb6d6;
+      line-height:1.7;
+      font-size:16px;
+    }
+
+    /* FEATURES */
+
+    .features{
+      padding:80px 8%;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:52px;
+      margin-bottom:15px;
+    }
+
+    .section-title p{
+      color:#a7bddc;
+      font-size:20px;
+    }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+    }
+
+    .feature-card{
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:30px;
+      padding:40px 30px;
+      transition:0.35s ease;
+    }
+
+    .feature-card:hover{
+      transform:translateY(-8px);
+      border-color:rgba(25,216,255,0.3);
+      box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    }
+
+    .feature-card i{
+      width:75px;
+      height:75px;
+      background:#0d3b68;
+      color:#19d8ff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:20px;
+      font-size:32px;
+      margin-bottom:25px;
+    }
+
+    .feature-card h3{
+      font-size:28px;
+      margin-bottom:18px;
+    }
+
+    .feature-card p{
+      color:#a8bddc;
+      line-height:1.8;
+      font-size:17px;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:1100px){
+
+      .hero{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .buttons{
+        justify-content:center;
+      }
+
+      .hero-text h1{
+        font-size:58px;
+      }
+
+      .image-card{
+        width:100%;
+        max-width:500px;
+      }
+    }
+
+    @media(max-width:768px){
+
+      .navbar{
+        padding:20px;
+        flex-direction:column;
+        height:auto;
+        gap:20px;
+      }
+
+      .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+
+      .hero-text h1{
+        font-size:44px;
+      }
+
+      .hero-text p{
+        font-size:18px;
+      }
+
+      .section-title h2{
+        font-size:38px;
+      }
+
+      .image-card{
+        height:480px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <div class="logo">
+      <i class="fa-solid fa-fish-fins"></i>
+      <h1>AquaVisionAI</h1>
+    </div>
+
+    <div class="nav-links">
+      <a href="index.html">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Identify
+      </a>
+
+      <a href="discover.html">
+        <i class="fa-solid fa-water"></i>
+        Discover
+      </a>
+
+      <a href="about.html" class="active">
+        <i class="fa-regular fa-circle-info"></i>
+        About
+      </a>
+    </div>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-text">
+
+      <h4>ABOUT THE PROJECT</h4>
+
+      <h1>
+        AI Powered <br>
+        Fish Species <br>
+        Classification
+      </h1>
+
+      <p>
+        AquaScan AI is an intelligent aquarium fish classification platform
+        designed to identify fish species instantly using deep learning and
+        computer vision. Upload a fish image and receive accurate species
+        predictions in seconds.
+      </p>
+
+      <div class="buttons">
+
+        <a href="#" class="btn primary-btn">
+          Explore Features
+        </a>
+
+        <a href="#" class="btn secondary-btn">
+          View Research
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="hero-image">
+
+      <div class="image-card">
+
+        <img src="gold.png" alt="Fish"/>
+
+        <div class="floating-card">
+
+          <h3>98% Classification Accuracy</h3>
+
+          <p>
+            Built using CNN-based deep learning architecture trained on
+            aquarium fish datasets for real-world prediction performance.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FEATURES -->
+
+  <section class="features">
+
+    <div class="section-title">
+
+      <h2>Why AquaVision AI?</h2>
+
+      <p>
+        Advanced technology combined with a modern user experience.
+      </p>
+
+    </div>
+
+
+        <div class="section-title">
+
+      <h2>How AquaVision AI Works?</h2>
+
+      <p>
+        AquaVision AI uses a convolutional neural network (CNN) trained on a large dataset of aquarium fish images. 
+        When you upload a photo, the AI processes the image through multiple layers to extract features and patterns,
+         ultimately classifying the fish species with high accuracy.
+      </p>
+
+    </div>
+    <div class="feature-grid">
+
+      <div class="feature-card">
+
+        <i class="fa-solid fa-brain"></i>
+
+        <h3>Deep Learning</h3>
+
+        <p>
+          Utilizes convolutional neural networks for high-accuracy fish
+          classification and prediction.
+        </p>
+
+      </div>
+
+      <div class="feature-card">
+
+        <i class="fa-solid fa-bolt"></i>
+
+        <h3>Fast Detection</h3>
+
+        <p>
+          Upload images and receive instant predictions with optimized AI
+          processing pipelines.
+        </p>
+
+      </div>
+
+      <div class="feature-card">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <h3>Reliable Results</h3>
+
+        <p>
+          Designed for real-world aquarium environments with robust and
+          scalable prediction performance.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</body>
+</html>
