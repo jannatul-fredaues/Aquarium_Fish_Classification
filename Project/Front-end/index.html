@@ -327,6 +327,116 @@
       }
     }
 
+    /* =========================
+   RESULT MODAL
+========================= */
+
+.result-modal{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  backdrop-filter:blur(6px);
+}
+
+.result-box{
+  width:420px;
+  max-width:90%;
+  background:linear-gradient(to bottom,#072552,#041733);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:28px;
+  padding:40px 30px;
+  text-align:center;
+  position:relative;
+  animation:popup 0.35s ease;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+
+@keyframes popup{
+  from{
+    transform:scale(0.7);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+.close-btn{
+  position:absolute;
+  top:18px;
+  right:22px;
+  font-size:32px;
+  color:#b8d5ff;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.close-btn:hover{
+  color:#19d7ff;
+}
+
+.result-icon{
+  width:100px;
+  height:100px;
+  margin:auto;
+  border-radius:25px;
+  background:linear-gradient(145deg,#0f4f80,#08395e);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:25px;
+}
+
+.result-icon i{
+  font-size:45px;
+  color:#22dcff;
+}
+
+.result-box h2{
+  font-size:32px;
+  margin-bottom:25px;
+}
+
+.result-content{
+  margin-bottom:30px;
+}
+
+.result-content p{
+  font-size:22px;
+  margin:14px 0;
+  color:#dcecff;
+}
+
+.result-content span{
+  color:#20d7ff;
+  font-weight:600;
+}
+
+#tryAgainBtn{
+  background:#12cfff;
+  border:none;
+  color:#00152f;
+  padding:14px 28px;
+  border-radius:14px;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+#tryAgainBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(18,207,255,0.3);
+}
+
   </style>
 </head>
 <body>
@@ -369,6 +479,7 @@
         <i class="fa-regular fa-circle-info"></i>
         About
       </a>
+
     </div>
 
   </nav>
@@ -392,7 +503,7 @@
 
     <label class="upload-container">
 
-      <input type="file" accept="image/*">
+      <input type="file" id="fileInput" accept="image/*">
 
       <div class="upload-icon">
         <i class="fa-solid fa-arrow-up-from-bracket"></i>
@@ -412,7 +523,131 @@
     </label>
 
   </section>
+<div class="result-modal" id="resultModal">
 
+  <div class="result-box">
+
+    <span class="close-btn" id="closeModal">&times;</span>
+
+    <div class="result-icon">
+      <i class="fa-solid fa-fish"></i>
+    </div>
+
+    <h2>Prediction Result</h2>
+
+    <div class="result-content">
+
+      <p>
+        <strong>Fish:</strong>
+        <span id="fishName">---</span>
+      </p>
+
+      <p>
+        <strong>Confidence:</strong>
+        <span id="fishConfidence">---</span>
+      </p>
+
+    </div>
+
+    <button id="tryAgainBtn">
+      Try Another Image
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+const fileInput = document.querySelector('input[type="file"]');
+
+fileInput.addEventListener("change", async function () {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    // Create form data
+    const formData = new FormData();
+
+    formData.append("image", file);
+
+    try {
+
+        // Send image to Flask backend
+        const response = await fetch(
+            "http://127.0.0.1:5000/predict",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+        const data = await response.json();
+
+        // Show result
+        if (data.success) {
+
+           document.getElementById("fishName").innerText =
+            data.fish;
+
+           document.getElementById("fishConfidence").innerText =
+            data.confidence + "%";
+
+           document.getElementById("resultModal").style.display =
+            "flex";
+
+        } else {
+
+            alert(data.message);
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Upload failed");
+    }
+
+});
+// CLOSE MODAL
+
+const resultModal =
+    document.getElementById("resultModal");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+const tryAgainBtn =
+    document.getElementById("tryAgainBtn");
+
+closeModal.onclick = () => {
+
+    resultModal.style.display = "none";
+
+    fileInput.value = "";
+};
+
+tryAgainBtn.onclick = () => {
+
+    resultModal.style.display = "none";
+
+    fileInput.value = "";
+};
+
+// Close when clicking outside
+
+window.onclick = (e) => {
+
+    if (e.target === resultModal) {
+
+        resultModal.style.display = "none";
+
+        fileInput.value = "";
+    }
+};
+
+</script>
 <!-- ========================================
      HERO SECTION END
 ======================================== -->
@@ -437,6 +672,10 @@
 <!-- FOOTER SECTION START -->
 <!-- Add footer here -->
 <!-- FOOTER SECTION END -->
+
+<!-- RESULT MODAL -->
+
+
 
 </body>
 </html>
